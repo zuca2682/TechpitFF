@@ -5,4 +5,21 @@ class Enemy
   public $name;//敵の名前
   public $hitPoint = 50;//現在のHP
   public $attackPoint = 10;//攻撃力
+  //メソッド
+  //攻撃
+  public function doAttack($human)
+  {
+    echo "『".$this->name."』の攻撃!\n";
+    echo "【".$human->name."】に".$this->attackPoint."のダメージ!\n";
+    $human->tookDamage($this->attackPoint);
+  }
+  //ダメージを受ける
+  public function tookDamage($damage)
+  {
+    $this->hitPoint -= $damage;
+    //HPが0未満にならないための処理
+    if ($this->hitPoint < 0) {
+        $this->hitPoint = 0;
+    }
+  }
 }
