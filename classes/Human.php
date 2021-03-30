@@ -14,6 +14,7 @@ class Human
   {
     echo "『".$this->name."』の攻撃!\n";
     echo "【".$enemy->name."】に".$this->attackPoint. "のダメージ!\n";
+    $enemy->tookDamage($this->attackPoint);
   }
   //ダメージを受ける
   public function tookDamage($damage)
