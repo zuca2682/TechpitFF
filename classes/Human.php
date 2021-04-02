@@ -25,4 +25,24 @@ class Human
         $this->hitPoint = 0;
     }
   }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getHitPoint()
+  {
+    return $this->hitPoint;
+  }
+
+  public function getAttackPoint()
+  {
+    return $this->attackPoint;
+  }
 }
