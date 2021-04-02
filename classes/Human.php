@@ -9,6 +9,11 @@ class Human
   private $attackPoint = 20;//攻撃力
 
   //メソッド
+  public function __construct($name)
+  {
+    $this->name = $name;
+  }
+
   //攻撃
   public function doAttack($enemy)
   {
@@ -29,11 +34,6 @@ class Human
   public function getName()
   {
     return $this->name;
-  }
-
-  public function setName($name)
-  {
-    $this->name = $name;
   }
 
   public function getHitPoint()
