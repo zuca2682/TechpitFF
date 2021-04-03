@@ -72,6 +72,21 @@ while(!$isFinishFlg) {
     echo "GAME OVER ....\n\n";
     break;
   }
+
+  //敵の全滅チェック
+  $deathCnt = 0;//HPが０以下の敵の数
+  foreach ($enemie as $enemy) {
+    if ($enemy->getHitPoint() > 0) {
+        $isFinishFlg = false;
+        break;
+    }
+    $deathCnt++;
+  }
+  if ($deathCnt === count($enemies)) {
+      $isFinishFlg = true;
+      echo "♪♪♪ファンファーレ♪♪♪\n\n";
+      break
+  }
   $turn++;
 
 }
