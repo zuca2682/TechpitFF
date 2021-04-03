@@ -38,8 +38,19 @@ while ($tiida->getHitPoint() > 0 && $goblin->getHitPoint() > 0) {
   echo "\n";
 
   //攻撃
-  $tiida->doAttack($goblin);
+  foreach ($members as $member) {
+    $enemyIndex = rand(0, count($enemies) -1);//添字は0から始まるので、-1する
+    $enemy = $enemies[$enemyIndex];
+    //白魔道士の場合、味方オブジェクトに返す
+    if (get_class($member) == "WhiteMage") {
+      $member->doAttackWhiteMage($enemy, $member);
+    }else{
+      $tiida->doAttack($goblin);
+    }
+    echo "\n";
+  }
   echo "\n";
+
   $goblin->doAttack($tiida);
   echo "\n";
 
