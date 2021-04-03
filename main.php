@@ -23,8 +23,9 @@ $enemies[] = new Enemy('モルボル', 30);
 
 $turn = 1;
 
-//どちらのHPが０になるまで繰り返す
-while ($tiida->getHitPoint() > 0 && $goblin->getHitPoint() > 0) {
+$isFinishFlg = false;
+
+while(!$isFinishFlg) {
   echo "*** $turn ターン目 ***\n\n";
 
   //現在のHPの表示
@@ -55,13 +56,25 @@ while ($tiida->getHitPoint() > 0 && $goblin->getHitPoint() > 0) {
     $memberIndex = rand(0, count($members) -1);//添字は0から始まるので、-1する
     $member = $members[$memberIndex];
     $enemy->doAttack($member);
-    echo "\n";
   }
-  echo "\n";
 
+  //仲間の全滅チェック
+  $deathCnt = 0;//HPが0以下の仲間の数
+  foreach ($members as $member) {
+    if ($member->getHitPoint() > 0) {
+        $isFinishFlg = false;
+        break;
+    }
+    $deathCnt++;
+  }
+  if ($deathCnt === count($members)) {
+    $isFinishFlg = true;
+    echo "GAME OVER ....\n\n";
+    break;
+  }
   $turn++;
-}
 
+}
 echo "★★★ 戦闘終了 ★★★\n\n";
 echo $tiida->getName() . " ： " . $tiida->getHitPoint() . "/" . $tiida::MAX_HITPOINT . "\n";
 echo $goblin->getName() . " ： " . $goblin->getHitPoint() . "/" . $goblin::MAX_HITPOINT . "\n\n";
