@@ -14,7 +14,12 @@ $members[] = new Brave('ティーダ');
 $members[] = new WhiteMage('ユウナ');
 $members[] = new BlackMage('ルールー');
 //$tiida = new Brave("ティーダ");
-$goblin = new Enemy("ゴブリン");
+
+$enemies = array();
+$enemies[] = new Enemy('ゴブリン', 20);
+$enemies[] = new Enemy('ボム', 25);
+$enemies[] = new Enemy('モルボル', 30);
+//$goblin = new Enemy("ゴブリン");
 
 $turn = 1;
 
