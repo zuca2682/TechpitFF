@@ -51,7 +51,12 @@ while ($tiida->getHitPoint() > 0 && $goblin->getHitPoint() > 0) {
   }
   echo "\n";
 
-  $goblin->doAttack($tiida);
+  foreach ($enemies as $enemy) {
+    $memberIndex = rand(0, count($members) -1);//添字は0から始まるので、-1する
+    $member = $members[$memberIndex];
+    $enemy->doAttack($member);
+    echo "\n";
+  }
   echo "\n";
 
   $turn++;
