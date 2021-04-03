@@ -14,11 +14,11 @@ $turn = 1;
 
 //どちらのHPが０になるまで繰り返す
 while ($tiida->getHitPoint() > 0 && $goblin->getHitPoint() > 0) {
-  echo "*** $turn ターン目　***\n\n";
+  echo "*** $turn ターン目 ***\n\n";
 
   //現在のHPの表示
-  echo $tiida->getName() . "　：　" . $tiida->getHitPoint() . "/" . $tiida::MAX_HITPOINT . "\n";
-  echo $goblin->getName() . "　：　" . $goblin->getHitPoint() . "/" . $goblin::MAX_HITPOINT . "\n";
+  echo $tiida->getName() . " ： " . $tiida->getHitPoint() . "/" . $tiida::MAX_HITPOINT . "\n";
+  echo $goblin->getName() . " ： " . $goblin->getHitPoint() . "/" . $goblin::MAX_HITPOINT . "\n";
   echo "\n";
 
   //攻撃
@@ -31,5 +31,5 @@ while ($tiida->getHitPoint() > 0 && $goblin->getHitPoint() > 0) {
 }
 
 echo "★★★ 戦闘終了 ★★★\n\n";
-echo $tiida->getName() . "　：　" . $tiida->getHitPoint() . "/" . $tiida::MAX_HITPOINT . "\n";
-echo $goblin->getName() . "　：　" . $goblin->getHitPoint() . "/" . $goblin::MAX_HITPOINT . "\n\n";
+echo $tiida->getName() . " ： " . $tiida->getHitPoint() . "/" . $tiida::MAX_HITPOINT . "\n";
+echo $goblin->getName() . " ： " . $goblin->getHitPoint() . "/" . $goblin::MAX_HITPOINT . "\n\n";
