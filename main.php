@@ -1,6 +1,4 @@
 <?php
-
-//echo "処理のはじまりはじまり〜!\n\n";
 //ファイルのロード
 require_once('./classes/Human.php');
 require_once('./classes/Enemy.php');
@@ -25,6 +23,23 @@ $isFinishFlg = false;
 
 $messageObj = new Message;
 
+//終了条件の判定
+function isFinish($objects)
+{
+  $deathCnt = 0;//HPが0以下の仲間の数
+  foreach ($objects as $object) {
+    //1人でもHPが０を超えていたらfalseを返す
+    if ($object->getHitPoint() > 0) {
+        return false;
+    }
+    $deathCnt++;
+  }
+  //仲間の数が死亡数(HPが０以下の数)と同じであればtrueを返す
+  if ($deathCnt === count($objects)) {
+    return true;
+  }
+}
+
 while (!$isFinishFlg) {
   echo "*** $turn ターン目 ***\n\n";
 
@@ -35,62 +50,31 @@ while (!$isFinishFlg) {
   $messageObj->displayStatusMessage($enemies);
 
   //仲間の攻撃
-  $messageObj->displayStatusMessage($members, $enemies);
+  $messageObj->displayAttackMessage($members, $enemies);
 
   //敵の攻撃
-  $messageObj->displayStatusMessage($enemies, $members);
+  $messageObj->displayAttackMessage($enemies, $members);
 
-  //攻撃
-  foreach ($members as $member) {
-    //白魔道士の場合、味方オブジェクトに返す
-    if (get_class($member) == "WhiteMage") {
-      $member->doAttackWhiteMage($enemies, $members);
-    }else{
-      $member->doAttack($enemies);//配列を渡すように変更
-    }
-    echo "\n";
-  }
-  echo "\n";
-
-  foreach ($enemies as $enemy) {
-    $enemy->doAttack($members);
-    echo "\n";
-  }
-  echo "\n";
-
-  //仲間の全滅チェック
-  $deathCnt = 0;//HPが0以下の仲間の数
-  foreach ($members as $member) {
-    if ($member->getHitPoint() > 0) {
-        $isFinishFlg = false;
-        break;
-    }
-    $deathCnt++;
-  }
-  if ($deathCnt === count($members)) {
-    $isFinishFlg = true;
-    echo "GAME OVER ....\n\n";
+  //戦闘終了条件のチェック、仲間全員のHPが０または、敵全員のHPが０
+  $isFinishFlg = isFinish($members);
+  if ($isFinishFlg) {
+    $message = "GAME OVER ....\n\n";
     break;
   }
 
-  //敵の全滅チェック
-  $deathCnt = 0;//HPが０以下の敵の数
-  foreach ($enemies as $enemy) {
-    if ($enemy->getHitPoint() > 0) {
-        $isFinishFlg = false;
-        break;
-    }
-    $deathCnt++;
+  $isFinishFlg = isFinish($enemies);
+  if ($isFinishFlg) {
+    $message = "♪♪♪ファンファーレ♪♪♪\n\n";
+    break;
   }
-  if ($deathCnt === count($enemies)) {
-      $isFinishFlg = true;
-      echo "♪♪♪ファンファーレ♪♪♪\n\n";
-      break;
-  }
+
   $turn++;
 
 }
 echo "★★★ 戦闘終了 ★★★\n\n";
+
+  echo $message;
+
   //仲間の表示
   $messageObj->displayStatusMessage($members);
 
