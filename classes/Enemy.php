@@ -12,6 +12,31 @@ class Enemy
     $this->attackPoint = $attackPoint;
   }
 
+  //攻撃
+  public function doAttack($humans)
+  {
+    //チェック１：自身のHPが０かどうか
+    if ($this->hitPoint <= 0) {
+      return false;
+    }
+
+    $humanIndex = rand(0, count($humans) -1);//添字は０から始まるので、−１する
+    $human = $humans[$humanIndex];
+
+    echo "『".$this->getName()."』の攻撃!\n";
+    echo "【".$human->getName()."】に".$this->attackPoint."のダメージ!\n";
+    $human->tookDamage($this->attackPoint);
+  }
+  //ダメージを受ける
+  public function tookDamage($damage)
+  {
+    $this->hitPoint -= $damage;
+    //HPが0未満にならないための処理
+    if ($this->hitPoint < 0) {
+        $this->hitPoint = 0;
+    }
+  }
+
   public function getName()
   {
     return $this->name;
@@ -27,20 +52,4 @@ class Enemy
     return $this->attackPoint;
   }
 
-  //攻撃
-  public function doAttack($human)
-  {
-    echo "『".$this->getName()."』の攻撃!\n";
-    echo "【".$human->getName()."】に".$this->attackPoint."のダメージ!\n";
-    $human->tookDamage($this->attackPoint);
-  }
-  //ダメージを受ける
-  public function tookDamage($damage)
-  {
-    $this->hitPoint -= $damage;
-    //HPが0未満にならないための処理
-    if ($this->hitPoint < 0) {
-        $this->hitPoint = 0;
-    }
-  }
 }
