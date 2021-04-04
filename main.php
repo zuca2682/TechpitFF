@@ -34,6 +34,12 @@ while (!$isFinishFlg) {
   //敵の表示
   $messageObj->displayStatusMessage($enemies);
 
+  //仲間の攻撃
+  $messageObj->displayStatusMessage($members, $enemies);
+
+  //敵の攻撃
+  $messageObj->displayStatusMessage($enemies, $members);
+
   //攻撃
   foreach ($members as $member) {
     //白魔道士の場合、味方オブジェクトに返す
