@@ -13,6 +13,10 @@ class Brave extends Human
 
   public function doAttack($enemy)
   {
+    if ($this->hitPoint <= 0) {
+      return false;
+    }
+
     //乱数の発生
     if (rand(1,3) === 1) {
       //スキルの発動
