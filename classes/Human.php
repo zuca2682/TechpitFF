@@ -17,8 +17,16 @@ class Human
   }
 
   //攻撃
-  public function doAttack($enemy)
+  public function doAttack($enemies)
   {
+    //チェック１：自身のHPが０かどうか
+    if ($this->hitPoint <= 0) {
+      return false;
+    }
+
+    $enemyIndex = rand(0, count($enemies) - 1);//添字は０から始まるので、−１とする
+    $enemy = $enemies[$enemyIndex];
+
     echo "『".$this->getName()."』の攻撃!\n";
     echo "【".$enemy->getName()."】に".$this->attackPoint. "のダメージ!\n";
     $enemy->tookDamage($this->attackPoint);
